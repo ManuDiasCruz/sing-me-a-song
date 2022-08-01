@@ -48,8 +48,25 @@ describe("E2E tests: POST /recommendations", () => {
             expect(res.response.statusCode).to.equals(422);
         });
     });  
+
+    it("Add a duplicated song", () => {
+        const song = setup.createRecommendation();
+  
+        cy.addSong(song);
+  
+        cy.visit("http://localhost:3000/");
+        cy.get("input").first().type(song.name);
+        cy.get("input").last().type(song.youtubeLink);
+  
+        cy.intercept("POST", "/recommendations").as("createRecommendation");
+        cy.get("button").click();
+  
+        cy.wait("@createRecommendation").then((res) => {
+            expect(res.response.statusCode).to.equals(409);
+        });
+    });
     
-    it("should add more than 10 posts, only shows 10 posts", () => {
+    it("Add >= 10 posts => Show only 10 posts", () => {
         cy.visit("http://localhost:3000/");
     
         for (let i = 0; i < 15; i++) {
