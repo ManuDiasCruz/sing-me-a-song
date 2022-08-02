@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 
-import * as setup from "./setup.js";
+import * as setup from "./utils/setup.js";
 
 beforeEach(() => {
     cy.resetPosts();
