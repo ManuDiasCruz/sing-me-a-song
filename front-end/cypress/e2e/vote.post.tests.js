@@ -48,7 +48,7 @@ describe("E2E tests: POST voting", () => {
     it("Downvote: votes < -5 ? <delete_song> : <downvote>", () => {
         cy.resetPosts();
         const song = setup.createRecommendation();
-        cy.createPost(song);
+        cy.addSong(song);
     
         cy.visit("http://localhost:3000");
         cy.contains("0").as("votes");

@@ -5,7 +5,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node dist/index.js",
     "dev": "nodemon src/server.ts",
+    "dev:test": "dotenv -e .env.test prisma migrate dev --skip-seed && dotenv -e .env.test nodemon src/server.ts",
+    "test:integration": "dotenv -e .env.test jest -- -i ./tests/integration",
+    "test:unit": "dotenv -e .env.test jest -- -i ./tests/unit",
     "prisma-test": "dotenv -e .env.test prisma migrate reset --skip-seed",
     "test": "npm run prisma-test && NODE_OPTIONS=--experimental-vm-modules dotenv -e .env.test jest -- -i"
   },
@@ -25,7 +29,6 @@
     "@types/node": "^16.3.3",
     "@types/supertest": "^2.0.11",
     "dotenv-cli": "^5.1.0",
-    "eslint": "^7.32.0",
     "jest": "^28.0.3",
     "nodemon": "^2.0.12",
     "prisma": "^3.13.0",
@@ -37,11 +40,11 @@
   "dependencies": {
     "@prisma/client": "^3.13.0",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
     "joi": "^17.4.1",
-    "random-youtube-music-video": "^1.0.6",
     "react-player": "^2.10.0"
   }
 }
